@@ -1,0 +1,239 @@
+---
+title: "Intro R"
+subtitle: "Data Carpentries for REU"
+date: "June 7, 2023"
+author: "Hannah"
+#format: revealjs
+format:
+  html: 
+    theme: cosmo
+    fontsize: 1.6em
+    linestretch: 1.7
+editor: visual
+---
+
+# Install R and RStudio (now called posit)
+
+R and RStudio are two separate pieces of software:
+
+-   **R** is a programming language that is especially powerful for data exploration, visualization, and statistical analysis
+
+-   **RStudio** is an integrated development environment (IDE) that makes using R easier. In this course we use RStudio to interact with R.
+
+If you don't already have R and RStudio installed, follow the instructions for your operating system. You have to install R before you install RStudio.
+
+# Downloading R and RStudio
+
+Windows
+
+-   Download R from the [CRAN website](https://cran.r-project.org/bin/windows/base/release.htm).
+-   Run the .exe file that was just downloaded
+-   Go to the [RStudio download page](https://www.rstudio.com/products/rstudio/download/#download)
+-   Under *All Installers*, download the RStudio Installer for Windows.
+-   Double click the file to install it
+-   Once it's installed, open RStudio to make sure it works and you don't get any error messages.
+
+MacOS
+
+-   Download R from the [CRAN website](https://cran.r-project.org/bin/macosx/).
+-   Select the .pkg file for the latest R version
+-   Double click on the downloaded file to install R
+-   It is also a good idea to install [XQuartz](https://www.xquartz.org/) (needed by some packages)
+-   Go to the [RStudio download page](https://www.rstudio.com/products/rstudio/download/#download)
+-   Under *All Installers*, download the RStudio Installer for MacOS.
+-   Double click the file to install RStudio
+-   Once it's installed, open RStudio to make sure it works and you don't get any error messages.
+
+# WHY R?
+
+-   Great for reproducibility
+-   Interdisciplinary and extensible
+-   Works for all types of data
+-   Can be used to create high quality graphics and interactives
+-   Open-source and cross platform with a great community and many learning resources
+
+# Many extensions and possibilities
+
+-   Easily connect with other software/programs/languages
+    -   Git for version control (which you will learn next week!)
+    -   Zotero for citation management (which you can learn on your own)
+    -   python, C++, C, SQL, etc can all be run from this IDE
+-   Create [documents](http://timelyportfolio.github.io/rCharts_nyt_home_price/), slides, and [interactives](https://hannaheow.shinyapps.io/StBasilsCausalInference/)
+    -   Awesome for collaborating and/or teaching! These slides were made in R!
+    -   Great for exploration and description of data with [many dimensions](https://countyhealthrankings.shinyapps.io/economicsecurityinteractive2022/)
+
+# Exploring RStudio
+
+-   Source
+
+-   Environment
+
+-   Files/Plots/Packages/Help/Viewer
+
+-   Console
+
+# Getting Set Up
+
+-   File -\> New Project -\> New Directory -\> New Project
+
+-   Directory name: "DataCarpentry"
+
+-   Create project as a subdirectory of: C:/Desktop/DataCarpentry
+
+-   Do not check "Create a git repository" or "Use renv with this project"
+
+-   Create Project
+
+# Folder Structure
+
+1.  Files (bottom right corner of RStudio) -\> New Folder -\> "data_raw"
+
+2.  In the console, type "dir.create("fig")"
+
+3.  Then create a third folder called "data_raw" using either the *Files* click method (1.) or the *Console* command method (2.)
+
+![This is what you should see in the right bottom corner of your RStudio screen when you are done. You do not need to have "data-carpentry-script.R" - just the .Rproj file and the three folders.](https://datacarpentry.org/R-ecology-lesson/fig/r-starting-how-it-should-look-like.png){fig-align="center"}
+
+# Working Directory
+
+-   The place R finds and saves files
+
+-   Your WD should only contain files relevant to your current project
+
+-   When you create an RProject, your WD is automatically set to the directory in which you've saved your project
+
+-   To check your working directory
+
+    -   type "getwd()" in your Console OR
+
+    -   go to the Files section of RStudio in the bottom right corner -\> click the "More" blue gear button -\> click "Go To Working Directory" OR
+
+    -   click "Session" on the top tool bar, click "Set Working Directory"
+
+# Seeking Help
+
+-   ?mean
+
+-   ??standarddeviation
+
+-   F1 while hovering over the name of a function
+
+-   browseVignettes()
+
+-   Help -\> Search R Help
+
+-   Help -\> Cheat Sheets
+
+-   Google!!!
+
+# Essentials for using R
+
+Perform math operations (usually done in the console)
+
+```{r}
+3 + 5 
+```
+
+Assign values to objects (usually done in the editor)
+
+```{r}
+weight = 55 
+```
+
+R is case sensitive
+
+```{r}
+weight = 55
+Weight = 55 
+
+(weight = 23)
+weight 
+
+```
+
+We can leave comments for our future selves using \# (in the editor)
+
+```{r}
+#height in inches 
+height = 64 
+```
+
+# Functions
+
+Functions can be used to automate complicated commands. There are MANY predefined functions in R. You can also write your own.
+
+A function takes an input called an "argument"
+
+Typically functions return a "value" but they don't have to
+
+Executing a function can be called "running the function" or "calling the function"
+
+```{r}
+?sqrt 
+square = sqrt(10)
+
+?round 
+args(round)
+round(3.14159)
+round(3.14159, digits = 2)
+round(square, digits = 2)
+
+square_round = round(square, digits = 2)
+```
+
+# Vectors
+
+A vector is a series of values, can be numbers or characters.
+
+A vector is assigned using *c( )*
+
+```{r}
+animal_weights = c(50, 60, 65, 82)
+animals = c("mouse", "rat", "dog")
+```
+
+We need the quotes around each animal name so that R knows that it shouldn't look for these words in its memory - we are creating each word for use within the *animals* vector only.
+
+If we want to add an element to a vector that we've already created, we can use the c() function again:
+
+```{r}
+animal_weights = c(animal_weights, 90)
+animals = c(animals, "mouse", "rat", "cat")
+```
+
+We can use the *length()* function to find out how many values are in the vector
+
+```{r}
+length(animal_weights)
+length(animals)
+```
+
+All entries of a vector must be the same type. We can use class() to determine what type of data is stored within a vector
+
+```{r}
+class(animals) 
+class(animal_weights)
+```
+
+We can use the function *str()* to see both the length and the class at the same time. *str()* shows us the overview of the structure of an object and its elements. It is especially useful for large and complex datasets.
+
+```{r}
+str(animals) 
+str(animal_weights)
+```
+
+The types above are numeric and character. There are a total of six types in R. For now, the only other type we need to know about is "logical" or TRUE/ FALSE. We use logical type in R when we want to save something that has only two options. For instance we might use logical to store something like whether an animal can swim.
+
+When we use logical in R, we must use all caps, either FALSE or F and TRUE or T.
+
+```{r}
+canswim = c(FALSE, FALSE, TRUE, TRUE) 
+```
+
+Exercise: what happens if we combine numeric, character, and logical values into a single vector?
+
+```{r}
+combo = c(FALSE, 6, "cat")
+```
+
+Vectors can only be of one data type. R will coerce the contents of a vector to a common type.
